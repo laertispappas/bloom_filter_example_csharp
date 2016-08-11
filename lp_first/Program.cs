@@ -24,8 +24,8 @@ namespace lp_first
 			var testCorpusWordList = GetWordsFromCorpus (CorpusFileName);
 			CheckWords (testCorpusWordList, bitArray, dictionary);
 
-			var isPresent = dictionary.IsWordPresent ("pappas222", bitArray);
-			Console.Write ("Is: #{0} present? {1}\n", "", isPresent);	
+			var isPresent = dictionary.IsWordPresent ("laertis2", bitArray);
+			Console.Write ("Is word ###{0}### present? {1}\n", "laertis2", isPresent);	
 		}
 
 
