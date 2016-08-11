@@ -5,6 +5,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
+
+// Source: https://github.com/sinhpham/MurmurHash3/blob/master/MurmurHash3/MurmurHash3_x64_128.cs
 namespace lp_first
 {
 	class MurmurHash3_x64_128 : HashAlgorithm

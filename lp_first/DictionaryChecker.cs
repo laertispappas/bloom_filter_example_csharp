@@ -23,9 +23,6 @@ namespace lp_first
 
 		public void Initialize(string word, IBitStorage dictionary)
 		{
-			//Console.Write ("Got hash value ##{0}## for word ##{1}##\n", hash, word);
-			//Console.Write ("Modulus with bit array length #{0}\n", dictionary.Length ());
-			//Console.Write ("Index (after mod) #{0}\n\n\n", index);
 			for (int seed = 0; seed < HashCount; seed++) {
 				int hash = (HashValue (word, seed));
 				// TODO modulus with bits instead
@@ -48,14 +45,14 @@ namespace lp_first
 				}
 			}
 
-			// Else World might exist in our dictionary
+			// Else World *might* exist in our dictionary
 			return true;
 		}
 
 		private int HashValue(string word, int seed)
 		{
 			byte[] key = ToByteArray (word);
-			mmh3.Seed = (uint)(0);
+			mmh3.Seed = (uint)(seed);
 
 			var hashedKey = mmh3.ComputeHash(key, 0, key.Length);
 			return BitConverter.ToInt32 (hashedKey, 0);

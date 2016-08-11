@@ -9,6 +9,7 @@ namespace lp_first
 	class MainClass
 	{
 		private const string CorpusFileName = "../../KING_HENRY_THE_EIGHTH";
+		private const string TestCorpusFileName = "../../THE_TRAGEDY_OF_ROMEO_AND_JULIET";
 
 		public static void Main (string[] args)
 		{
@@ -17,7 +18,16 @@ namespace lp_first
 
 			var corpusWordList = GetWordsFromCorpus (CorpusFileName);
 			AddToDictionary (corpusWordList, bitArray, dictionary);
+			CheckWords (corpusWordList, bitArray, dictionary);
+
+			// Test
+			var testCorpusWordList = GetWordsFromCorpus (CorpusFileName);
+			CheckWords (testCorpusWordList, bitArray, dictionary);
+
+			var isPresent = dictionary.IsWordPresent ("pappas222", bitArray);
+			Console.Write ("Is: #{0} present? {1}\n", "", isPresent);	
 		}
+
 
 		private static List<string> GetWordsFromCorpus(string filename){
 			var list = new List<String>();
@@ -40,8 +50,13 @@ namespace lp_first
 			foreach (var word in corpusWordList) {
 				Console.Write ("Adding: #{0} to BitStorage\n", word);
 				dictionary.Initialize (word, bitArray);
+			}
+		}
+
+		private static void CheckWords(List<String> wordlist, BitStorage bitArray, DictionaryChecker dictionary) {
+			foreach (var word in wordlist) {
 				var isPresent = dictionary.IsWordPresent (word, bitArray);
-				Console.Write ("Is: #pappas present? {0}\n", isPresent);
+				Console.Write ("Is: #{0} present? {1}\n", word, isPresent);				
 			}
 		}
 	}
