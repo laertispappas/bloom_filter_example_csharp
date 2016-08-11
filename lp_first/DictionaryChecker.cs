@@ -1,8 +1,9 @@
 using System;
+using System.Text;
 
 namespace lp_first
 {
-	// Bloom Filter: 
+	// Bloom Filter:
 	// Given k hash functions find the hash values for word by hashing it k times
 	// modulus each hash value with the size of the bits in dictionary (dictionary.Length)
 	// to get the array index
@@ -11,65 +12,73 @@ namespace lp_first
 	// Optimization: Use the same hash function k times as decribed in this paper
 	// No need to implement k different hash functions
 	// see http://www.eecs.harvard.edu/~kirsch/pubs/bbbf/esa06.pdf
-	// TODO Increase time: 
+	// TODO Increase time: ...
+
 
 	public class DictionaryChecker : IDictionaryChecker
 	{
-		public int hashCount;
 		private const int HashCount = 10;
-		private MurmurHash3_x64_128 mmh3 = new MurmurHash3_x64_128();
+		private MurmurHash3_x86_32 mmh3 = new MurmurHash3_x86_32();
 
 
 		public void Initialize(string word, IBitStorage dictionary)
 		{
-			int hash = HashValue (word) % dictionary.Length();
-			Console.Write ("Initializing word: {0} with hash: {1}", word, hash);
-			dictionary.Set(hash);
+			//Console.Write ("Got hash value ##{0}## for word ##{1}##\n", hash, word);
+			//Console.Write ("Modulus with bit array length #{0}\n", dictionary.Length ());
+			//Console.Write ("Index (after mod) #{0}\n\n\n", index);
+			for (int seed = 0; seed < HashCount; seed++) {
+				int hash = (HashValue (word, seed));
+				// TODO modulus with bits instead
+				int index = mod (hash, dictionary.Length ());
+				dictionary.Set(index);
+			}
 		}
 
 		public bool IsWordPresent(string word, IBitStorage dictionary)
 		{
-			int hash = HashValue (word) % dictionary.Length();
-			//Console.Write ("Lookup word: {0} with hash: {1}", word, hash);
-			return dictionary.IsSet(hash);
-		}
-
-		private int HashValue(string word)
-		{
-			Console.Write ("Inside hashedvalue. Word: {0}", word);
-
-			int hashbits = 128;
-			int hashbytes = hashbits / 8;
-
-			byte[] key = new byte[256];
-			byte[] hashes = new byte[hashbytes * 256];
-
-			// Hash keys of the form {0}, {0,1}, {0,1,2}... up to N=255,using 256-N as
-			// the seed
-			for (int i = 0; i < 256; i++)
-			{
-				key[i] = (byte)i;
-				mmh3.Seed = (uint)(256 - i);
-				var ret = mmh3.ComputeHash(key, 0, i);
-				Array.Copy(ret, 0, hashes, i * hashbytes, hashbytes);
+			// Loop and hash the word HashCOunt times
+			// If a zero is found we are definetly sure that
+			// the world does not exist in our dictionary
+			for (int seed = 0; seed < HashCount; seed++) {
+				int hash = (HashValue (word, seed));
+				// TODO modulus with bits instead
+				int index = mod (hash, dictionary.Length ());
+				if (dictionary.IsSet (index) == false) {
+					return false;
+				}
 			}
 
-			// Then hash the result array
-			mmh3.Seed = 0;
-			var final = mmh3.ComputeHash(hashes, 0, hashbytes * 256);
+			// Else World might exist in our dictionary
+			return true;
+		}
 
-			// The first four bytes of that hash, interpreted as a little-endian integer, is our
-			// verification value
-			UInt32 hashedWord = (UInt32)((final[0] << 0) | (final[1] << 8) | (final[2] << 16) | (final[3] << 24));
-			Console.Write("hashWord: {0} --- final: {1}", hashedWord, final);
-			Console.Write ("\n\n");
-			//if (BitConverter.IsLittleEndian)
-			//	Array.Reverse(final);
-			// ToUInt64 // 
-			//int intFinal = BitConverter.ToInt32(final, 0);
+		private int HashValue(string word, int seed)
+		{
+			byte[] key = ToByteArray (word);
+			mmh3.Seed = (uint)(0);
 
-			return 10;
+			var hashedKey = mmh3.ComputeHash(key, 0, key.Length);
+			return BitConverter.ToInt32 (hashedKey, 0);
+		}
+
+		private byte[] ToByteArray(string word)
+		{
+			char[] letters = word.ToCharArray();
+			byte[] wordToBytes = new byte[word.Length];
+
+			for(int i = 0; i < word.Length; i++)
+			{
+				wordToBytes[i] = (byte)letters[i];
+			}
+
+			return wordToBytes;
+		}
+
+		// C# modulus % returns negative results
+		// custom modulus function
+		private int mod(int x, int m) {
+			int r = x%m;
+			return r<0 ? r+m : r;
 		}
 	}
 }
-
