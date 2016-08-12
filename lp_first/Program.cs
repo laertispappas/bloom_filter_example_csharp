@@ -5,9 +5,11 @@ using System.Collections.Generic;
 
 namespace lp_first
 {
-	// corpus: https://github.com/laertispappas/mapreduce_python/tree/master/corpus/
 	class MainClass
 	{
+
+		// corpus: https://github.com/laertispappas/mapreduce_python/tree/master/corpus/
+		// TODO add 100k unique words
 		private const string CorpusFileName = "../../KING_HENRY_THE_EIGHTH";
 		private const string TestCorpusFileName = "../../THE_TRAGEDY_OF_ROMEO_AND_JULIET";
 
@@ -18,11 +20,12 @@ namespace lp_first
 
 			var corpusWordList = GetWordsFromCorpus (CorpusFileName);
 			AddToDictionary (corpusWordList, bitArray, dictionary);
-			CheckWords (corpusWordList, bitArray, dictionary);
+			//CheckWords (corpusWordList, bitArray, dictionary);
 
 			// Test
 			var testCorpusWordList = GetWordsFromCorpus (CorpusFileName);
 			CheckWords (testCorpusWordList, bitArray, dictionary);
+			CheckWords (corpusWordList, bitArray, dictionary);
 
 			var isPresent = dictionary.IsWordPresent ("laertis2", bitArray);
 			Console.Write ("Is word ###{0}### present? {1}\n", "laertis2", isPresent);	
@@ -39,6 +42,7 @@ namespace lp_first
 				foreach (string part in parts)
 				{
 					list.Add(part);
+
 					//Console.WriteLine("{0}", part);
 				}
 			}
@@ -48,7 +52,7 @@ namespace lp_first
 
 		private static void AddToDictionary(List<String> corpusWordList, BitStorage bitArray,DictionaryChecker dictionary){
 			foreach (var word in corpusWordList) {
-				Console.Write ("Adding: #{0} to BitStorage\n", word);
+				//Console.Write ("Adding: #{0} to BitStorage\n", word);
 				dictionary.Initialize (word, bitArray);
 			}
 		}
@@ -56,7 +60,10 @@ namespace lp_first
 		private static void CheckWords(List<String> wordlist, BitStorage bitArray, DictionaryChecker dictionary) {
 			foreach (var word in wordlist) {
 				var isPresent = dictionary.IsWordPresent (word, bitArray);
-				Console.Write ("Is: #{0} present? {1}\n", word, isPresent);				
+				//Console.Write ("Is: #{0} present? {1}\n", word, isPresent);
+				if (!isPresent) {
+					throw new Exception ("Word not found in dictionary");
+				}
 			}
 		}
 	}

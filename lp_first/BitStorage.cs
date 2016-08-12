@@ -24,6 +24,10 @@ namespace lp_first
 			Value(bitNumber, true);
 		}
 
+		// I need this in my calculations.
+		// We need to know the bit array size
+		// in order to mod the hash value to fit in
+		// array. 
 		public int Length()
 		{
 			return _ba.Length;

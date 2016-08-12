@@ -13,7 +13,8 @@ namespace lp_first
 		bool IsSet(int bitNumber);
 
 		// If changing inerface is not applicable we need to keep track ourselves
-		// in DictionaryChecker the size of bitArray elements.
+		// the size of bitArray elements.
+		// Although I think this method should be provided
 		int Length();
 	}
 

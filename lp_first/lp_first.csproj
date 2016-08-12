@@ -42,8 +42,8 @@
     <Compile Include="IBitStorage.cs" />
     <Compile Include="BitStorage.cs" />
     <Compile Include="DictionaryChecker.cs" />
-    <Compile Include="MurmurHash3_x64_128.cs" />
-    <Compile Include="MurmurHash3_x86_32.cs" />
+    <Compile Include="BloomFilter.cs" />
+    <Compile Include="MurmurHash.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
