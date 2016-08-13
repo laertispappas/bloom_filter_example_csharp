@@ -10,27 +10,20 @@ namespace lp_first
 
 		// corpus: https://github.com/laertispappas/mapreduce_python/tree/master/corpus/
 		// TODO add 100k unique words
-		private const string CorpusFileName = "../../KING_HENRY_THE_EIGHTH";
-		private const string TestCorpusFileName = "../../THE_TRAGEDY_OF_ROMEO_AND_JULIET";
+		private const string WordlistCirpusFileName = "../../l33t_words.txt";
 
 		public static void Main (string[] args)
 		{
 			var bitArray = new BitStorage ();
 			var dictionary = new DictionaryChecker ();
 
-			var corpusWordList = GetWordsFromCorpus (CorpusFileName);
+			var corpusWordList = GetWordsFromCorpus (WordlistCirpusFileName);
 			AddToDictionary (corpusWordList, bitArray, dictionary);
-			//CheckWords (corpusWordList, bitArray, dictionary);
-
-			// Test
-			var testCorpusWordList = GetWordsFromCorpus (CorpusFileName);
-			CheckWords (testCorpusWordList, bitArray, dictionary);
 			CheckWords (corpusWordList, bitArray, dictionary);
 
 			var isPresent = dictionary.IsWordPresent ("laertis2", bitArray);
 			Console.Write ("Is word ###{0}### present? {1}\n", "laertis2", isPresent);	
 		}
-
 
 		private static List<string> GetWordsFromCorpus(string filename){
 			var list = new List<String>();
