@@ -18,11 +18,32 @@ namespace lp_first
 			var dictionary = new DictionaryChecker ();
 
 			var corpusWordList = GetWordsFromCorpus (WordlistCirpusFileName);
+			// Add all words to dictionary (200k+)
+			Console.WriteLine ("Going to puts 200k words in dictionary");
+
+			var watch = System.Diagnostics.Stopwatch.StartNew();
 			AddToDictionary (corpusWordList, bitArray, dictionary);
+			// Find all words. This raises an exception if no word is found
+			// Our probability is 0.001 
+			Console.WriteLine ("Going to iterate over all words and check if they exist in dictionary");
+			Console.WriteLine ("If a word is not found an exception will be thrown");
+			Console.WriteLine ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			CheckWords (corpusWordList, bitArray, dictionary);
 
-			var isPresent = dictionary.IsWordPresent ("laertis2", bitArray);
-			Console.Write ("Is word ###{0}### present? {1}\n", "laertis2", isPresent);	
+			watch.Stop();
+			var elapsedMs = watch.ElapsedMilliseconds;
+			Console.WriteLine ("**** Time Elapsed: {0} ********", elapsedMs);
+
+			Console.WriteLine ("All words were found!!!");
+
+			var nonExistingWord = "l33tn0n3)(1St1nGWord";
+			Console.WriteLine ("Going to check if this word is in dictionary: #{0}#", nonExistingWord);
+			var isPresent = dictionary.IsWordPresent (nonExistingWord, bitArray);
+			Console.WriteLine ("Is word #l33tn0n3)(1St1nGWord# present?: ");
+			Console.WriteLine (isPresent);
+
+
+			Console.WriteLine ("Exiting. ");
 		}
 
 		private static List<string> GetWordsFromCorpus(string filename){
