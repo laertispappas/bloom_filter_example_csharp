@@ -31,23 +31,16 @@ namespace lp_first
 	/// *********************************************************************************************
 	public class BloomFilter
 	{
-		// We use MurmurHash v2 here ported ported from a JAVA implementation 
-		// (Same code with 2 changes for unsigned right shift in JAVA (>>> operator))
-		// TODO: Think of changing this to MurmurHashv3
 		private static MurmurHash hasher = new MurmurHash();
-		// we know our data 100k words and 2mb limit in space
-		// so this is statically typed here (pre calculated)
-		// for 0.001 error If we eant to decrease error rate we need to increament hashCount as well. 
 		private const int HashCount = 2;
 
 		// Gets the hash bucket indexes for bitArray
 		//
 		// @param [String] key the word we want to put in our dictionary
-		// @param [int] max Length of out botArray storage
+		// @param [int] max Length of bitArray storage
 		// 
 		// @return [Array] K (hashCount) bucjetIndexes for the given word
 		public static int[] GetHashBuckets(string key, int max) {
-			//byte[] byteKey = ToByteArray (key);
 			int[] result = new int[HashCount];
 
 			int hash1 = hasher.hash (key, key.Length, 0);
