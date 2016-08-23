@@ -61,6 +61,7 @@ namespace lp_first
 		}
 
 		// Convert a string to bytes
+		// Rethink this
 		// TODO I think this can be done more efficient
 		private static byte[] ToByteArray(string word)
 		{
