@@ -38,7 +38,7 @@ namespace lp_first
 		// we know our data 100k words and 2mb limit in space
 		// so this is statically typed here (pre calculated)
 		// for 0.001 error If we eant to decrease error rate we need to increament hashCount as well. 
-		private const int HashCount = 10;
+		private const int HashCount = 2;
 
 		// Gets the hash bucket indexes for bitArray
 		//
