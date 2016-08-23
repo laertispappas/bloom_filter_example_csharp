@@ -34,7 +34,7 @@ namespace lp_first
 			}
 			watch.Stop();
 			var elapsedMs = watch.ElapsedMilliseconds;
-			Console.WriteLine ("**** #DictionaryChecker#Initialize Time Elapsed: {0} ********", elapsedMs);
+			Console.WriteLine ("**** Add and Check Time Elapsed: {0} ********", elapsedMs);
 		}
 
 		private static void CalculateProbability(){
