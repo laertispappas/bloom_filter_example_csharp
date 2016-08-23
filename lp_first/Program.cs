@@ -58,7 +58,7 @@ namespace lp_first
 			}
 			// test for false positives
 			for (int n = 0; n < falsePositiveTest; n++) {
-				String s = Utils.GetRandomString(20);
+				String s = Utils.GetRandomString(10);
 				if (!already.Contains(s)) {
 					noNotIn++;
 					if (dictionary.IsWordPresent (s, bitArray)) 
