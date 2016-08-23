@@ -9,7 +9,7 @@ namespace lp_first
 		}
 		// MurmurHash 2.0 Implementation
 		// See http://murmurhash.googlepages.com/
-		public int hash(byte[] data, int length, int seed){
+		public int hash(string data, int length, int seed){
 			int m = 0x5bd1e995;
 			int r = 24;
 

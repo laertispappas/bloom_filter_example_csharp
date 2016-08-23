@@ -47,33 +47,17 @@ namespace lp_first
 		// 
 		// @return [Array] K (hashCount) bucjetIndexes for the given word
 		public static int[] GetHashBuckets(string key, int max) {
-			byte[] byteKey = ToByteArray (key);
+			//byte[] byteKey = ToByteArray (key);
 			int[] result = new int[HashCount];
 
-			int hash1 = hasher.hash (byteKey, byteKey.Length, 0);
-			int hash2 = hasher.hash (byteKey, byteKey.Length, hash1);
+			int hash1 = hasher.hash (key, key.Length, 0);
+			int hash2 = hasher.hash (key, key.Length, hash1);
 
 			for (int i = 0; i < HashCount; i++) {
 				result [i] = (int)((uint)(hash1 + i * hash2) % (uint)max);
 			}
 
 			return result;
-		}
-
-		// Convert a string to bytes
-		// Rethink this
-		// TODO I think this can be done more efficient
-		private static byte[] ToByteArray(string word)
-		{
-			char[] letters = word.ToCharArray();
-			byte[] wordToBytes = new byte[word.Length];
-
-			for(int i = 0; i < word.Length; i++)
-			{
-				wordToBytes[i] = (byte)letters[i];
-			}
-
-			return wordToBytes;
 		}
 	}
 }
