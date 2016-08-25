@@ -7,9 +7,25 @@ namespace lp_first
 		public MurmurHash ()
 		{
 		}
+
+		public int hash(string str, int length, int seed)
+		{
+			const uint fnv_prime = 0x811C9DC5;
+			uint hash = (uint)(seed ^ length);
+			uint i = 0;
+
+			for (i = 0; i < str.Length; i++)
+			{
+				hash *= fnv_prime;
+				hash ^= ((byte)str[(int)i]);
+			}
+
+			return (int)hash;
+		}
+
 		// MurmurHash 2.0 Implementation
 		// See http://murmurhash.googlepages.com/
-		public int hash(string data, int length, int seed){
+		public int __hash(string data, int length, int seed){
 			int m = 0x5bd1e995;
 			int r = 24;
 
