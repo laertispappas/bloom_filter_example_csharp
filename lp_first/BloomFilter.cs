@@ -32,7 +32,7 @@ namespace lp_first
 	public class BloomFilter
 	{
 		private static MurmurHash hasher = new MurmurHash();
-		private const int HashCount = 2;
+		private const int HashCount = 3;
 
 		// Gets the hash bucket indexes for bitArray
 		//
