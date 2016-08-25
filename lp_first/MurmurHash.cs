@@ -8,7 +8,7 @@ namespace lp_first
 		{
 		}
 
-		public int hash(string str, int length, int seed)
+		public int _hash(string str, int length, int seed)
 		{
 			const uint fnv_prime = 0x811C9DC5;
 			uint hash = (uint)(seed ^ length);
@@ -25,7 +25,7 @@ namespace lp_first
 
 		// MurmurHash 2.0 Implementation
 		// See http://murmurhash.googlepages.com/
-		public int __hash(string data, int length, int seed){
+		public int hash(string data, int length, int seed){
 			int m = 0x5bd1e995;
 			int r = 24;
 
@@ -44,7 +44,6 @@ namespace lp_first
 				k = k | (data[i_4 + 0] & 0xff);
 				k *= m;
 				k ^= k >> r; // (int)((uint)x >> r);  ----> //k ^= k >>> r;
-				k *= m;
 				h *= m;
 				h ^= k;
 			}
