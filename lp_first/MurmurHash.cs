@@ -33,28 +33,6 @@ namespace lp_first
 				h ^= k;
 			}
 
-			// avoid calculating modulo
-			int len_m = len_4 << 2;
-			int left = length - len_m;
-
-			if (left != 0) {
-				if (left >= 3) {
-					h ^= (int) data[length - 3] << 16;
-				}
-				if (left >= 2) {
-					h ^= (int) data[length - 2] << 8;
-				}
-				if (left >= 1) {
-					h ^= (int) data[length - 1];
-				}
-
-				h *= m;
-			}
-
-			h ^= h >> 13; //h ^= h >>> 13;
-			h *= m;
-			h ^= h >> 15; //h ^= h >>> 15;
-
 			return h;
 		}
 	}

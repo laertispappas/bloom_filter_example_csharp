@@ -7,8 +7,8 @@ namespace lp_first
 {
 	class MainClass
 	{
-		//private static int noItems = 1300 * 1000;
-		private static int noItems = 100 * 1000;
+		private static int noItems = 1300 * 1000;
+		//private static int noItems = 100 * 1000;
 
 		public static void Main (string[] args)
 		{

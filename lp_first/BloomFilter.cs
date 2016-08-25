@@ -47,7 +47,7 @@ namespace lp_first
 			int hash2 = hasher.hash (key, key.Length, hash1);
 
 			for (int i = 0; i < HashCount; i++) {
-				result [i] = (int)((uint)(hash1 + i * hash2) % (uint)max);
+				result [i] = (hash1 + i * hash2) & (max - 1);
 			}
 
 			return result;
