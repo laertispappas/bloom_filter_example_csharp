@@ -13,7 +13,8 @@ namespace lp_first
 		public static void Main (string[] args)
 		{
 			CalculateProbability ();
-			CalculateExecutionTime ();
+			//for (int i = 1; i < 11; i++)
+			//	CalculateExecutionTime ();
 		}
 
 		private static void CalculateExecutionTime(){
@@ -43,7 +44,7 @@ namespace lp_first
 			Console.WriteLine ("Calculating False Positive Probability");
 			Console.WriteLine ("****************************************");
 
-			int falsePositiveTest = 100 * 1000;
+			int falsePositiveTest = 1000 * 1000;
 			double noFalsePositives = 0;
 			int noNotIn = 0;
 
