@@ -43,15 +43,10 @@ namespace lp_first
 		public static int[] GetHashBuckets(string key, int max) {
 			int[] result = new int[HashCount];
 
-			int hash1 = hasher.hash (key, key.Length, 0);
-			int hash2 = hasher.hash (key, key.Length, hash1);
-
+			ulong hash11 = hasher.hash64 (key, 0, key.Length, 0);
+			ulong hash22 = hasher.hash64 (key, 0, key.Length, hash11);
 			for (int i = 0; i < HashCount; i++) {
-				//Console.WriteLine ("Hash1 >> 24: #{0}", hash1);
-				//Console.WriteLine ("Hash 1: #{0}", hash1);
-				//Console.WriteLine ("Hash 2: #{0}", hash2);
-
-				result [i] = (hash1 + i * hash2) & (max - 1);
+				result [i] = ((int)hash11 + i * (int)hash22) & (max - 1);
 			}
 
 			return result;

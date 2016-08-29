@@ -4,11 +4,6 @@ namespace lp_first
 {
 	public class MurmurHash
 	{
-		public MurmurHash ()
-		{
-		}
-		// MurmurHash 2.0 Implementation
-		// See http://murmurhash.googlepages.com/
 		public int hash(string data, int length, int seed){
 			int m = 0x5bd1e995;
 			int r = 24;
@@ -56,6 +51,70 @@ namespace lp_first
 			h ^= h >> 15; //h ^= h >>> 15;
 
 			return h;
+		}
+
+		public ulong hash64(string key, int offset, int len, ulong seed)
+		{
+			ulong length = (ulong) len;
+			ulong m64 = 0xc6a4a7935bd1e995L;
+			int r64 = 47;
+
+			ulong h64 = (seed & 0xffffffffL) ^ (m64 * length);
+
+			int lenLongs = len >> 3;
+
+			for (int i = 0; i < lenLongs; ++i)
+			{
+				int i_8 = i << 3;
+
+				ulong k64 =  ((ulong)  key[offset+i_8+0] & 0xff)      + (((ulong) key[offset+i_8+1] & 0xff)<<8)  +
+					(((ulong) key[offset+i_8+2] & 0xff)<<16) + (((ulong) key[offset+i_8+3] & 0xff)<<24) +
+						(((ulong) key[offset+i_8+4] & 0xff)<<32) + (((ulong) key[offset+i_8+5] & 0xff)<<40) +
+						(((ulong) key[offset+i_8+6] & 0xff)<<48) + (((ulong) key[offset+i_8+7] & 0xff)<<56);
+
+				k64 *= m64;
+				k64 ^= k64 >> r64; // k64 ^= k64 >>> r64;
+				k64 *= m64;
+
+				h64 ^= k64;
+				h64 *= m64;
+			}
+
+			int rem = len & 0x7;
+
+			switch (rem)
+			{
+				case 0:
+				break;
+			case 7:
+				h64 ^= (ulong)key [offset + len - rem + 6] << 48;
+				break;
+			case 6:
+				h64 ^= (ulong)key [offset + len - rem + 5] << 40;
+				break;
+			case 5:
+				h64 ^= (ulong)key [offset + len - rem + 4] << 32;
+				break;
+			case 4:
+				h64 ^= (ulong)key [offset + len - rem + 3] << 24;
+				break;
+			case 3:
+				h64 ^= (ulong)key [offset + len - rem + 2] << 16;
+				break;
+			case 2:
+				h64 ^= (ulong)key [offset + len - rem + 1] << 8;
+				break;
+			case 1:
+				h64 ^= (ulong)key [offset + len - rem];
+				h64 *= m64;
+				break;
+			}
+
+			h64 ^= h64 >> r64; // h64 >>> r64;
+			h64 *= m64;
+			h64 ^= h64 >> r64; // h64 >>> r64;
+
+			return h64;
 		}
 	}
 }
