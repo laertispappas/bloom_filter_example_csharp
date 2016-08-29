@@ -13,8 +13,8 @@ namespace lp_first
 		public static void Main (string[] args)
 		{
 			CalculateProbability ();
-			//for (int i = 1; i < 11; i++)
-			//	CalculateExecutionTime ();
+			for (int i = 1; i < 11; i++)
+				CalculateExecutionTime ();
 		}
 
 		private static void CalculateExecutionTime(){

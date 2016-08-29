@@ -47,6 +47,10 @@ namespace lp_first
 			int hash2 = hasher.hash (key, key.Length, hash1);
 
 			for (int i = 0; i < HashCount; i++) {
+				//Console.WriteLine ("Hash1 >> 24: #{0}", hash1);
+				//Console.WriteLine ("Hash 1: #{0}", hash1);
+				//Console.WriteLine ("Hash 2: #{0}", hash2);
+
 				result [i] = (hash1 + i * hash2) & (max - 1);
 			}
 
