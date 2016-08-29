@@ -7,22 +7,6 @@ namespace lp_first
 		public MurmurHash ()
 		{
 		}
-
-		public int _hash(string str, int length, int seed)
-		{
-			const uint fnv_prime = 0x811C9DC5;
-			uint hash = (uint)(seed ^ length);
-			uint i = 0;
-
-			for (i = 0; i < str.Length; i++)
-			{
-				hash *= fnv_prime;
-				hash ^= ((byte)str[(int)i]);
-			}
-
-			return (int)hash;
-		}
-
 		// MurmurHash 2.0 Implementation
 		// See http://murmurhash.googlepages.com/
 		public int hash(string data, int length, int seed){
@@ -44,9 +28,32 @@ namespace lp_first
 				k = k | (data[i_4 + 0] & 0xff);
 				k *= m;
 				k ^= k >> r; // (int)((uint)x >> r);  ----> //k ^= k >>> r;
+				k *= m;
 				h *= m;
 				h ^= k;
 			}
+
+			// avoid calculating modulo
+			int len_m = len_4 << 2;
+			int left = length - len_m;
+
+			if (left != 0) {
+				if (left >= 3) {
+					h ^= (int) data[length - 3] << 16;
+				}
+				if (left >= 2) {
+					h ^= (int) data[length - 2] << 8;
+				}
+				if (left >= 1) {
+					h ^= (int) data[length - 1];
+				}
+
+				h *= m;
+			}
+
+			h ^= h >> 13; //h ^= h >>> 13;
+			h *= m;
+			h ^= h >> 15; //h ^= h >>> 15;
 
 			return h;
 		}
