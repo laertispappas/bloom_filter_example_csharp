@@ -49,7 +49,7 @@ namespace lp_first
 			ulong hash22 = Hasher.fnv1a (key, hash11);
 
 			for (int i = 0; i < HashCount; i++) {
-				result [i] = ((int)hash11 + i * (int)hash22) & (max - 1);
+				result [i] = (int)((hash11 + (ulong)i * hash22) & (ulong)(max - 1));
 			}
 
 			return result;
