@@ -4,8 +4,22 @@ namespace lp_first
 {
 	public class Hasher
 	{
-		public static int jenkins(string key, int len, int seed) {
+		public static ulong fnv1a(string bytes, ulong seed)
+		{
+			const ulong fnv64Offset = 14695981039346656037;
+			const ulong fnv64Prime = 0x100000001b3;
+			ulong hash = fnv64Offset ^ seed;
 
+			for (var i = 0; i < bytes.Length; i++)
+			{
+				hash = hash ^ bytes[i];
+				hash *= fnv64Prime;
+			}
+
+			return hash;
+		}
+
+		public static int jenkins(string key, int len, int seed) {
 			int hash, i;
 			hash = seed ^ len;
 

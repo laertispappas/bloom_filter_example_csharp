@@ -42,8 +42,12 @@ namespace lp_first
 		public static int[] GetHashBuckets(string key, int max) {
 			int[] result = new int[HashCount];
 
-			ulong hash11 = Hasher.murmur64 (key, 0, key.Length, 0);
-			ulong hash22 = Hasher.murmur64 (key, 0, key.Length, hash11);
+			//ulong hash11 = Hasher.murmur64 (key, 0, key.Length, 0);
+			//ulong hash22 = Hasher.murmur64 (key, 0, key.Length, hash11);
+
+			ulong hash11 = Hasher.fnv1a (key, 0);
+			ulong hash22 = Hasher.fnv1a (key, hash11);
+
 			for (int i = 0; i < HashCount; i++) {
 				result [i] = ((int)hash11 + i * (int)hash22) & (max - 1);
 			}
