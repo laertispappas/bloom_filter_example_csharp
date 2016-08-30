@@ -14,10 +14,12 @@ namespace lp_first
 			{
 				hash = hash ^ bytes[i];
 				hash *= fnv64Prime;
+				// hash += (hash << 10);
+
 			}
 
 			//hash += (hash << 3);
-			hash ^= (hash >> 11);
+			// hash ^= (hash >> 11);
 			//hash += (hash << 15);
 
 			return hash;
