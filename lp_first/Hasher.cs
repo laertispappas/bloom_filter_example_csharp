@@ -2,9 +2,25 @@ using System;
 
 namespace lp_first
 {
-	public class MurmurHash
+	public class Hasher
 	{
-		public int hash(string data, int length, int seed){
+		public static int jenkins(string key, int len, int seed) {
+
+			int hash, i;
+			hash = seed ^ len;
+
+			for (i = 0; i < len; ++i) {
+				hash += key[i];
+				hash += (hash << 10);
+				hash ^= (hash >> 6);
+			}
+			hash += (hash << 3);
+			hash ^= (hash >> 11);
+			hash += (hash << 15);
+			return hash;
+		}
+
+		public static int murmur(string data, int length, int seed){
 			int m = 0x5bd1e995;
 			int r = 24;
 
@@ -53,7 +69,7 @@ namespace lp_first
 			return h;
 		}
 
-		public ulong hash64(string key, int offset, int len, ulong seed)
+		public static ulong murmur64(string key, int offset, int len, ulong seed)
 		{
 			ulong length = (ulong) len;
 			ulong m64 = 0xc6a4a7935bd1e995L;

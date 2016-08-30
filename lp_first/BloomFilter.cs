@@ -31,7 +31,6 @@ namespace lp_first
 	/// *********************************************************************************************
 	public class BloomFilter
 	{
-		private static MurmurHash hasher = new MurmurHash();
 		private const int HashCount = 3;
 
 		// Gets the hash bucket indexes for bitArray
@@ -43,8 +42,8 @@ namespace lp_first
 		public static int[] GetHashBuckets(string key, int max) {
 			int[] result = new int[HashCount];
 
-			ulong hash11 = hasher.hash64 (key, 0, key.Length, 0);
-			ulong hash22 = hasher.hash64 (key, 0, key.Length, hash11);
+			ulong hash11 = Hasher.murmur64 (key, 0, key.Length, 0);
+			ulong hash22 = Hasher.murmur64 (key, 0, key.Length, hash11);
 			for (int i = 0; i < HashCount; i++) {
 				result [i] = ((int)hash11 + i * (int)hash22) & (max - 1);
 			}
