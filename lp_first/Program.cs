@@ -54,13 +54,13 @@ namespace lp_first
 
 			// Add items to dictionary
 			for (int itemNo = 0; itemNo < noItems; itemNo++) {
-				String s = Utils.GetRandomString(10);
+				String s = Utils.GetRandomString(Utils.GetRandomNumber(1, 5));
 				already.Add(s);
 				dictionary.Initialize (s, bitArray);
 			}
 			// test for false positives
 			for (int n = 0; n < falsePositiveTest; n++) {
-				String s = Utils.GetRandomString(10);
+				String s = Utils.GetRandomString(Utils.GetRandomNumber(1, 5));
 				if (!already.Contains(s)) {
 					noNotIn++;
 					if (dictionary.IsWordPresent (s, bitArray)) 
