@@ -1,0 +1,5 @@
+/home/argyris/projects/bloom_filter_example_csharp/lp_first/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/home/argyris/projects/bloom_filter_example_csharp/lp_first/bin/Debug/lp_first.exe.mdb
+/home/argyris/projects/bloom_filter_example_csharp/lp_first/bin/Debug/lp_first.exe
+/home/argyris/projects/bloom_filter_example_csharp/lp_first/obj/x86/Debug/lp_first.exe
+/home/argyris/projects/bloom_filter_example_csharp/lp_first/obj/x86/Debug/lp_first.exe.mdb

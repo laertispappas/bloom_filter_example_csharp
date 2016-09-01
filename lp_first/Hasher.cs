@@ -14,8 +14,6 @@ namespace lp_first
 			{
 				hash = hash ^ bytes[i];
 				hash *= fnv64Prime;
-				// hash += (hash << 10);
-
 			}
 
 			//hash += (hash << 3);

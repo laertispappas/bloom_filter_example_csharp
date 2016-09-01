@@ -12,6 +12,13 @@ namespace lp_first
 
 		public static void Main (string[] args)
 		{
+			var bitArray = new BitStorage ();
+			var dictionary = new DictionaryChecker ();
+
+			dictionary.Initialize ("Pappas", bitArray);
+			Console.WriteLine(dictionary.IsWordPresent ("Pappas", bitArray));
+			Console.WriteLine(dictionary.IsWordPresent ("Pappas NO", bitArray));
+
 			CalculateProbability ();
 			for (int i = 1; i < 11; i++)
 				CalculateExecutionTime ();
@@ -54,13 +61,13 @@ namespace lp_first
 
 			// Add items to dictionary
 			for (int itemNo = 0; itemNo < noItems; itemNo++) {
-				String s = Utils.GetRandomString(Utils.GetRandomNumber(1, 5));
+				String s = Utils.GetRandomString(Utils.GetRandomNumber(1, 35));
 				already.Add(s);
 				dictionary.Initialize (s, bitArray);
 			}
 			// test for false positives
 			for (int n = 0; n < falsePositiveTest; n++) {
-				String s = Utils.GetRandomString(Utils.GetRandomNumber(1, 5));
+				String s = Utils.GetRandomString(Utils.GetRandomNumber(1, 35));
 				if (!already.Contains(s)) {
 					noNotIn++;
 					if (dictionary.IsWordPresent (s, bitArray)) 
