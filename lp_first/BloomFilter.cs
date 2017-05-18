@@ -20,7 +20,7 @@ namespace lp_first
 	/// *********************************************************************************************
 	/// *********************************************************************************************
 	/// *** For this implementation we take a more efficient approach as discribed in this paper:   *
-	/// http://www.eecs.harvard.edu/~kirsch/pubs/bbbf/esa06.pdf										*
+	/// https://www.eecs.harvard.edu/~michaelm/postscripts/tr-02-05.pdf										*
 	// No need to have k hash functions and hash the word k times.									*
 	/// We only hash it 2 times and then we take each hash index by 								*
 	/// the following fucntion:																		*
